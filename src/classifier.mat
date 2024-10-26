@@ -1,0 +1,42 @@
+net.Layers;
+ans
+net.Layers
+layer='efficientnet-b0|model|head|global_average_pooling2d|GlobAvgPool' ;
+featuresTrain = activations(net,augimdsTrain,layer,'OutputAs','rows');
+featuresTest = activations(net,augimdsValidation,layer,'OutputAs','rows');
+YTrain = imdsTrain.Labels;
+YTest = imdsValidation.Labels
+featuresTest = activations(net,augimdsValidation,layer,'OutputAs','rows');
+YTrain = imdsTrain.Labels;
+YTest = imdsValidation.Labels
+feat=featuresTrain;
+feat(16053:(16052+6878),:)=featuresTest;
+Y=YTrain;
+Y(16053:(16052+6878))=YTest;
+n = grp2idx(Y);
+n
+feat;
+feat(:,1281)=n;
+classifier = fitcknn(featuresTrain,YTrain);
+YPred = predict(classifier,featuresTest);
+accuracy = mean(YPred == YTest)
+
+
+figure;
+cm=confusionchart(imdsValidation.Labels,YPred);
+n=YPred;
+c=unique(n);
+figure;
+ hold on;
+for i=1:10
+    [xr, yr, ~, auc] = perfcurve(n,probs(:, i), c(i));
+    plot(xr, yr, 'linewidth', 1)
+    legends{i} = sprintf('AUC for %d class: %.3f', c(i), auc);
+end
+legend(legends, 'location', 'southeast')
+line([0 1], [0 1], 'linestyle', ':', 'color', 'k');
+xlabel('FPR'), ylabel('TPR')
+title('ROC')
+axis square
+cm=confusionmat(imdsValidation.Labels,YPred);
+statsOfMeasure(cm,1);
