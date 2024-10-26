@@ -1,0 +1,60 @@
+function GradCAMButtonPushed(app, event)
+            
+            % Create a dlnetwork
+            app.createDLNet();
+            
+            % Find softmaxLayer
+            idxSoftmaxLayer = arrayfun(@(x)isa(x, "nnet.cnn.layer.SoftmaxLayer"), ...
+                app.DLNet.Layers);
+            softmaxName = app.Net.Layers(idxSoftmaxLayer).Name;
+            
+            % Chosen feature map layer
+            featureLayerName = app.GradCAMFeatureMapDropDown.Value;
+            
+            % Grad-CAM function shown in MATLAB documentation
+            function [featureMap,dScoresdMap] = gradcam(dlnet, dlImg, softmaxName, featureLayerName, classfn)
+                [scores,featureMap] = predict(dlnet, dlImg, 'Outputs', {softmaxName, featureLayerName});
+                classScore = scores(classfn);
+                dScoresdMap = dlgradient(classScore,featureMap);
+            end
+            
+            try
+                % To use automatic differentiation, convert image to dlarray
+                dlImg = dlarray(single(app.CurrentPredictImage), "SSC");
+                
+                % Extract target class
+                targetClass = string(app.GradCAMTargetclassDropDown.Value);
+                classLabels = app.Net.Layers(end).Classes;
+                chosenClass = classLabels(classLabels == targetClass);
+                
+                % Compute the Grad-CAM gradient for the image by calling dlfeval on the gradcam function.
+                [featureMap, dScoresdMap] = dlfeval(@gradcam, app.DLNet, dlImg, ...
+                    softmaxName, featureLayerName, chosenClass);
+                
+                % Resize the gradient map to the network image size, and
+                % scale the scores to the appropriate levels for display.
+                gradcamMap = sum(featureMap .* sum(dScoresdMap, [1 2]), 3);
+                gradcamMap = extractdata(gradcamMap);
+                gradcamMap = rescale(gradcamMap);
+                gradcamMap = imresize(gradcamMap, size(dlImg, [1 2]), ...
+                    'Method', 'bicubic');
+                
+            catch
+                uialert(app.UNPICUIFigure, ...
+                    "Unable to compute Grad-CAM mapping." + newline + newline + ...
+                    "Select an image and a suitable layer before computing the Grad-CAM map.", ...
+                    'Error')
+                return
+            end
+            
+            % Show the Grad-CAM levels on top of the image.
+            imshow(app.CurrentPredictImage, "Parent", app.ExplainerSingleImageUIAxes);
+            app.ExplainerSingleImageUIAxes.NextPlot = "add";
+            imagesc(gradcamMap, "Parent", app.ExplainerSingleImageUIAxes, ...
+                "AlphaData", 0.5);
+            
+            % 'jet' colormap has deep blue as the lowest value and deep red
+            % as the highest.
+            app.ExplainerSingleImageUIAxes.Colormap = jet();
+            app.ExplainerSingleImageUIAxes.NextPlot = "replace";
+        end
