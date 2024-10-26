@@ -1,26 +1,29 @@
 # Crop Pesticide Detection using ML/DL
 
-![image](https://github.com/user-attachments/assets/d5446e63-40d7-4430-9d44-5fb11d98cc9d)
+<img src="https://github.com/user-attachments/assets/d5446e63-40d7-4430-9d44-5fb11d98cc9d" alt="Crop Pesticide Detection" width="300"/>
 
-Robust identification of pest, weed and disease detection in
-- tomato
-- grapes
-- corn
-plants using deep fused neural architecture 
+Robust identification of pest, weed, and disease in:
 
-Used Efficientnet-B0 architecture with relatively less number of layers and achieved an accuracy of **99.6 %**
+- **Tomato**
+- **Grapes**
+- **Corn**
 
-### **Framework for Tomato plant leaves**:
+Plants are achieved using a deep fused neural architecture. The EfficientNet-B0 architecture, with its relatively fewer layers, achieved an impressive accuracy of **99.6%**.
 
-![image](https://github.com/user-attachments/assets/24e7ad25-129a-4b1a-a75f-b4ad67b94bec)
+---
 
-### **Framework for Grape plant leaves**:
+### Frameworks for Each Crop
 
-![image](https://github.com/user-attachments/assets/f3a1005f-16a9-4e77-8a9c-b9fffe1f8411)
+#### Tomato Plant Leaves
 
-### **Framework for Maize plant leaves**:
+![Tomato Framework](https://github.com/user-attachments/assets/24e7ad25-129a-4b1a-a75f-b4ad67b94bec)
 
-![image](https://github.com/user-attachments/assets/7b2662c0-2eb3-41de-b1bb-fd98c58d5199)
+#### Grape Plant Leaves
 
+![Grape Framework](https://github.com/user-attachments/assets/f3a1005f-16a9-4e77-8a9c-b9fffe1f8411)
 
+#### Maize (Corn) Plant Leaves
 
+![Maize Framework](https://github.com/user-attachments/assets/7b2662c0-2eb3-41de-b1bb-fd98c58d5199)
+
+---
