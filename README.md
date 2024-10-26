@@ -2,13 +2,13 @@
 
 <img src="https://github.com/user-attachments/assets/d5446e63-40d7-4430-9d44-5fb11d98cc9d" alt="Crop Pesticide Detection" width="300"/>
 
-Robust identification of pest, weed, and disease in:
+Robust identification of pest, weed, and disease in the following plant leaves are achieved using a deep fused neural architecture
 
 - **Tomato**
 - **Grapes**
 - **Corn**
 
-plant leaves are achieved using a deep fused neural architecture. The EfficientNet-B0 architecture, with its relatively fewer layers, achieved an impressive accuracy of **99.6%**.
+The EfficientNet-B0 architecture, with its relatively fewer layers, achieved an impressive accuracy of **99.6%**.
 
 ---
 
