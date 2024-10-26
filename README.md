@@ -8,7 +8,7 @@ Robust identification of pest, weed, and disease in:
 - **Grapes**
 - **Corn**
 
-Plants are achieved using a deep fused neural architecture. The EfficientNet-B0 architecture, with its relatively fewer layers, achieved an impressive accuracy of **99.6%**.
+plant leaves are achieved using a deep fused neural architecture. The EfficientNet-B0 architecture, with its relatively fewer layers, achieved an impressive accuracy of **99.6%**.
 
 ---
 
